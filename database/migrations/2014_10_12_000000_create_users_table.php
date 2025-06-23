@@ -43,7 +43,6 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone')->unique();
-            $table->timestamp('phone_verified_at')->nullable();
             $table->string('role'); // role seperti: Polantas, Pelapor, dll
             $table->string('password');
             $table->rememberToken();
