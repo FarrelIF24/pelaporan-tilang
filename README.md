@@ -4,11 +4,10 @@
 3. // make sure your .env file (especially for DB) is ready
 4. php artisan migrate (only insert) OR php artisan migrate:fresh (drop & insert)
 5. php artisan serve OR php -S 127.0.0.1:8080 -t public
+6. to expose the storage folder, run `php artisan storage:link`
+7. to compile the assets, run `npm run dev`
 
-### Note
-run `npm run dev` to compile the assets
-
-
+---
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
