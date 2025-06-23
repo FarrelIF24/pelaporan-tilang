@@ -13,6 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/dashboard');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+
+Route::view('/verifikasi', 'laporan.verifikasi')->name('verifikasi.laporan.pelanggaran');
+Route::view('/laporkan', 'laporan.laporkan')->name('laporkan.pelanggaran');
+Route::view('/riwayat', 'laporan.riwayat')->name('riwayat.pelanggaran');
+
+require __DIR__.'/auth.php';
