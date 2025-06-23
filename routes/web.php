@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,8 @@ Route::get('/dashboard', function () {
 
 
 Route::view('/verifikasi', 'laporan.verifikasi')->name('verifikasi.laporan.pelanggaran');
-Route::view('/laporkan', 'laporan.laporkan')->name('laporkan.pelanggaran');
+// Route::view('/laporkan', 'laporan.laporkan')->name('laporkan.pelanggaran');
+Route::get('/laporkan', [LaporanController::class, 'create'])->name('laporkan.pelanggaran');
 Route::view('/riwayat', 'laporan.riwayat')->name('riwayat.pelanggaran');
 
 require __DIR__.'/auth.php';
