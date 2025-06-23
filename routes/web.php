@@ -38,7 +38,10 @@ Route::middleware(['auth'])->group(function () {
     
     // Polantas routes (role = 1)
     Route::middleware(['role:1'])->group(function () {
-        Route::view('/verifikasi', 'laporan.verifikasi')->name('laporan.verifikasi');
+        Route::get('/verifikasi', [App\Http\Controllers\LaporanController::class, 'verification'])->name('laporan.verifikasi');
+        Route::get('/laporan/{id}/detail', [App\Http\Controllers\LaporanController::class, 'detail'])->name('laporan.detail');
+        Route::post('/laporan/{id}/approve', [App\Http\Controllers\LaporanController::class, 'approve'])->name('laporan.approve');
+        Route::post('/laporan/{id}/reject', [App\Http\Controllers\LaporanController::class, 'reject'])->name('laporan.reject');
     });
 });
 

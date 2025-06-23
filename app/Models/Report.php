@@ -30,6 +30,16 @@ class Report extends Model
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'violation_date' => 'datetime',
+        'report_fee' => 'decimal:2',
+    ];
+
+    /**
      * Get the reporter (user) that owns the report.
      */
     public function reporter()

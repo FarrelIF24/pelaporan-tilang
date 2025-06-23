@@ -17,16 +17,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    // protected $fillable = [
-    //     'name',
-    //     'email',
-    //     'password',
-    // ];
     protected $fillable = [
         'name',
         'phone',
         'role',
         'password',
+        'balance',
     ];
 
     /**
@@ -45,7 +41,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        // Removed phone_verified_at as it's not needed
+        'balance' => 'decimal:2',
     ];
     
     /**
