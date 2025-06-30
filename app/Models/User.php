@@ -17,18 +17,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    // protected $fillable = [
-    //     'name',
-    //     'email',
-    //     'password',
-    // ];
     protected $fillable = [
         'name',
         'phone',
         'role',
         'password',
+        'balance',
     ];
-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -46,6 +41,42 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'balance' => 'decimal:2',
     ];
+    
+    /**
+     * Check if user is a Polantas (traffic officer)
+     *
+     * @return bool
+     */
+    public function isPolantas()
+    {
+        return $this->role === 'Polantas';
+    }
+    
+    /**
+     * Check if user is a Pelapor (reporter)
+     *
+     * @return bool
+     */
+    public function isPelapor()
+    {
+        return $this->role === 'Pelapor';
+    }
+    
+    /**
+     * Get the reports submitted by this user.
+     */
+    public function submittedReports()
+    {
+        return $this->hasMany(Report::class, 'reporter_id');
+    }
+    
+    /**
+     * Get the reports verified by this user.
+     */
+    public function verifiedReports()
+    {
+        return $this->hasMany(Report::class, 'verified_by');
+    }
 }

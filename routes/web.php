@@ -27,9 +27,22 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
-Route::view('/verifikasi', 'laporan.verifikasi')->name('verifikasi.laporan.pelanggaran');
-// Route::view('/laporkan', 'laporan.laporkan')->name('laporkan.pelanggaran');
-Route::get('/laporkan', [LaporanController::class, 'create'])->name('laporkan.pelanggaran');
-Route::view('/riwayat', 'laporan.riwayat')->name('riwayat.pelanggaran');
+Route::middleware(['auth'])->group(function () {
+    // Pelapor routes (role = 2)
+    Route::middleware(['role:2'])->group(function () {
+        Route::get('/laporkan', [App\Http\Controllers\LaporanController::class, 'create'])->name('laporan.create');
+        Route::post('/laporkan', [App\Http\Controllers\LaporanController::class, 'store'])->name('laporan.store');
+        Route::get('/riwayat', [App\Http\Controllers\LaporanController::class, 'history'])->name('laporan.riwayat');
+        Route::get('/laporan/{id}', [App\Http\Controllers\LaporanController::class, 'show'])->name('laporan.show');
+    });
+    
+    // Polantas routes (role = 1)
+    Route::middleware(['role:1'])->group(function () {
+        Route::get('/verifikasi', [App\Http\Controllers\LaporanController::class, 'verification'])->name('laporan.verifikasi');
+        Route::get('/laporan/{id}/detail', [App\Http\Controllers\LaporanController::class, 'detail'])->name('laporan.detail');
+        Route::post('/laporan/{id}/approve', [App\Http\Controllers\LaporanController::class, 'approve'])->name('laporan.approve');
+        Route::post('/laporan/{id}/reject', [App\Http\Controllers\LaporanController::class, 'reject'])->name('laporan.reject');
+    });
+});
 
 require __DIR__.'/auth.php';
